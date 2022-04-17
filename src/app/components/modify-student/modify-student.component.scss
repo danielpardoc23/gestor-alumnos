@@ -1,0 +1,34 @@
+h3{
+  margin: 1em;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+}
+
+.header > a{
+  margin-top: 1.3em;
+  margin-left: 13em;
+}
+
+.container-form{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.container-form mat-form-field{
+  margin: 1em;
+}
+
+.buttons{
+  min-width: 100%;
+  margin-top: 0.5em;
+}
+
+.buttons > button{
+  align-self: center;
+  min-width: 95%;
+  height: 100%;
+  margin: 1em;
+}

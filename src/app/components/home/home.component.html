@@ -1,0 +1,156 @@
+<div class="home">
+  <div class="header">
+    <h3>Agregar alumno</h3>
+    <a mat-tab-link routerLink="/list">Lista de alumnos</a>
+  </div>
+  <form [formGroup]="signStudent" (ngSubmit)="submitForm()" class="container-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="signStudent.get('name')?.errors && signStudent.get('name')?.hasError('required')">
+        {{ STUDENT_ERRORS.name.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Primer apellido</mat-label>
+      <input matInput formControlName="lastname1" required>
+      <mat-error *ngIf="signStudent.get('lastname1')?.errors && signStudent.get('lastname1')?.hasError('required')">
+        {{ STUDENT_ERRORS.lastname1.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Segundo apellido</mat-label>
+      <input matInput formControlName="lastname2">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="signStudent.get('email')?.errors && signStudent.get('email')?.hasError('required')">
+        {{ STUDENT_ERRORS.email.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('email')?.errors && signStudent.get('email')?.hasError('email')">
+        {{ STUDENT_ERRORS.email.invalid }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" required>
+      <mat-error *ngIf="signStudent.get('dni')?.errors && signStudent.get('dni')?.hasError('required')">
+        {{ STUDENT_ERRORS.dni.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('dni')?.errors && signStudent.get('dni')?.hasError('invalid')">
+        {{ STUDENT_ERRORS.dni.invalid }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <div *ngIf="signStudent.get('country')?.value === 'ES' ; then spanishMobile else otherMobile"></div>
+      <ng-template #spanishMobile>
+        <input matInput formControlName="mobile" required pattern="(6|7)[ -]*([0-9][ -]*){8}">
+      </ng-template>
+      <ng-template #otherMobile>
+        <input matInput formControlName="mobile" required>
+      </ng-template>
+      <mat-error *ngIf="signStudent.get('mobile')?.errors && signStudent.get('mobile')?.hasError('required')">
+        {{ STUDENT_ERRORS.mobile.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('mobile')?.errors && signStudent.get('mobile')?.hasError('invalid')">
+        {{ STUDENT_ERRORS.mobile.invalid }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('mobile')?.errors && signStudent.get('mobile')?.hasError('pattern')">
+        {{ STUDENT_ERRORS.mobile.notSpanish }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Segundo teléfono</mat-label>
+      <input matInput formControlName="secondMobile">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>País</mat-label>
+      <mat-select formControlName="country" required>
+        <mat-option *ngFor="let country of COUNTRIES" [value]="country.code">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="signStudent.get('country')?.errors && signStudent.get('country')?.hasError('required')">
+        {{ STUDENT_ERRORS.country.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Provincia</mat-label>
+      <div *ngIf="signStudent.get('country')?.value === 'ES' ; then spanish else other"></div>
+        <ng-template #spanish>
+          <mat-select #spanish formControlName="province" required>
+            <mat-option *ngFor="let prov of PROVINCES" [value]="prov.code">
+              {{ prov.name }}
+            </mat-option>
+          </mat-select>
+        </ng-template>
+        <ng-template #other>
+          <input matInput formControlName="province" required>
+        </ng-template>
+      <mat-error *ngIf="signStudent.get('province')?.errors && signStudent.get('province')?.hasError('required')">
+        {{ STUDENT_ERRORS.province.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Código postal</mat-label>
+      <div *ngIf="signStudent.get('country')?.value === 'ES' ; then spanishCp else otherCp"></div>
+        <ng-template #spanishCp>
+          <input matInput formControlName="cp" required pattern="[4][2][0-9]{3}">
+        </ng-template>
+        <ng-template #otherCp>
+          <input matInput formControlName="cp" required>
+        </ng-template>
+      <mat-error *ngIf="signStudent.get('cp')?.errors && signStudent.get('cp')?.hasError('required')">
+        {{ STUDENT_ERRORS.cp.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('cp')?.errors && signStudent.get('cp')?.hasError('invalid')">
+        {{ STUDENT_ERRORS.cp.invalid }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('cp')?.errors && signStudent.get('cp')?.hasError('pattern')">
+        {{ STUDENT_ERRORS.cp.notSpanish }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Localidad</mat-label>
+      <input matInput formControlName="location" required>
+      <mat-error *ngIf="signStudent.get('loation')?.errors && signStudent.get('location')?.hasError('required')">
+        {{ STUDENT_ERRORS.location.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nickname</mat-label>
+      <input matInput formControlName="nickname" required>
+      <mat-error *ngIf="signStudent.get('nickname')?.errors && signStudent.get('nickname')?.hasError('required')">
+        {{ STUDENT_ERRORS.nickname.notProvided }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="signStudent.get('password')?.errors && signStudent.get('password')?.hasError('required')">
+        {{ STUDENT_ERRORS.password.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('password')?.errors && signStudent.get('password')?.hasError('minLength')">
+        {{ STUDENT_ERRORS.password.minLength }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Repita la contraseña</mat-label>
+      <input matInput type="password" formControlName="repeatPassword" required>
+      <mat-error *ngIf="signStudent.get('repeatPassword')?.errors && signStudent.get('repeatPassword')?.hasError('required')">
+        {{ STUDENT_ERRORS.repeatPassword.notProvided }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('repeatPassword')?.errors && signStudent.get('repeatPassword')?.hasError('minLength')">
+        {{ STUDENT_ERRORS.repeatPassword.minLength }}
+      </mat-error>
+      <mat-error *ngIf="signStudent.get('repeatPassword')?.errors && signStudent.get('repeatPassword')?.hasError('invalid')">
+        {{ STUDENT_ERRORS.repeatPassword.invalid }}
+      </mat-error>
+    </mat-form-field>
+    <div class="buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="signStudent.invalid">Crear alumno</button>
+    </div>
+  </form>
+</div>

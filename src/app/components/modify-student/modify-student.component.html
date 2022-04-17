@@ -1,0 +1,118 @@
+<div class="modify">
+  <div class="header">
+    <h3>MODIFICAR ALUMNO</h3>
+    <a mat-tab-link [routerLink]="['/home']">Inicio</a>
+    <a mat-tab-link [routerLink]="['/list']">Lista de alumnos</a>
+  </div>
+  <div class="content">
+    <form [formGroup]="modifyStudent" (ngSubmit)="submitForm()" class="container-form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.name}}</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="modifyStudent.get('name')?.errors && modifyStudent.get('name')?.hasError('required')">
+          {{ STUDENT_ERRORS.name.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.lastname1}}</mat-label>
+        <input matInput formControlName="lastname1" required>
+        <mat-error *ngIf="modifyStudent.get('lastname1')?.errors && modifyStudent.get('lastname1')?.hasError('required')">
+          {{ STUDENT_ERRORS.lastname1.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.lastname2}}</mat-label>
+        <input matInput formControlName="lastname2">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.email}}</mat-label>
+        <input matInput formControlName="email" required>
+        <mat-error *ngIf="modifyStudent.get('email')?.errors && modifyStudent.get('email')?.hasError('required')">
+          {{ STUDENT_ERRORS.email.notProvided }}
+        </mat-error>
+        <mat-error *ngIf="modifyStudent.get('email')?.errors && modifyStudent.get('email')?.hasError('email')">
+          {{ STUDENT_ERRORS.email.invalid }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.dni}}</mat-label>
+        <input matInput formControlName="dni" required>
+        <mat-error *ngIf="modifyStudent.get('dni')?.errors && modifyStudent.get('dni')?.hasError('required')">
+          {{ STUDENT_ERRORS.dni.notProvided }}
+        </mat-error>
+        <mat-error *ngIf="modifyStudent.get('dni')?.errors && modifyStudent.get('dni')?.hasError('invalid')">
+          {{ STUDENT_ERRORS.dni.invalid }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.mobile}}</mat-label>
+        <input matInput formControlName="mobile" required>
+        <mat-error *ngIf="modifyStudent.get('mobile')?.errors && modifyStudent.get('mobile')?.hasError('required')">
+          {{ STUDENT_ERRORS.mobile.notProvided }}
+        </mat-error>
+        <mat-error *ngIf="modifyStudent.get('mobile')?.errors && modifyStudent.get('mobile')?.hasError('invalid')">
+          {{ STUDENT_ERRORS.mobile.invalid }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.secondMobile}}</mat-label>
+        <input matInput formControlName="secondMobile">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.country}}</mat-label>
+        <mat-select formControlName="country" required>
+          <mat-option *ngFor="let country of COUNTRIES" [value]="country.code">
+            {{ country.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="modifyStudent.get('country')?.errors && modifyStudent.get('country')?.hasError('required')">
+          {{ STUDENT_ERRORS.country.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.province}}</mat-label>
+        <div *ngIf="modifyStudent.get('country')?.value === 'ES' ; then spanish else other"></div>
+          <ng-template #spanish>
+            <mat-select #spanish formControlName="province" required>
+              <mat-option *ngFor="let prov of PROVINCES" [value]="prov.code">
+                {{ prov.name }}
+              </mat-option>
+            </mat-select>
+          </ng-template>
+          <ng-template #other>
+            <input matInput formControlName="province" required>
+          </ng-template>
+        <mat-error *ngIf="modifyStudent.get('province')?.errors && modifyStudent.get('province')?.hasError('required')">
+          {{ STUDENT_ERRORS.province.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.cp}}</mat-label>
+        <input matInput formControlName="cp" required>
+        <mat-error *ngIf="modifyStudent.get('cp')?.errors && modifyStudent.get('cp')?.hasError('required')">
+          {{ STUDENT_ERRORS.cp.notProvided }}
+        </mat-error>
+        <mat-error *ngIf="modifyStudent.get('cp')?.errors && modifyStudent.get('cp')?.hasError('invalid')">
+          {{ STUDENT_ERRORS.cp.invalid }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.location}}</mat-label>
+        <input matInput formControlName="location" required>
+        <mat-error *ngIf="modifyStudent.get('loation')?.errors && modifyStudent.get('location')?.hasError('required')">
+          {{ STUDENT_ERRORS.location.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{student.nickname}}</mat-label>
+        <input matInput formControlName="nickname" required>
+        <mat-error *ngIf="modifyStudent.get('nickname')?.errors && modifyStudent.get('nickname')?.hasError('required')">
+          {{ STUDENT_ERRORS.nickname.notProvided }}
+        </mat-error>
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-raised-button color="primary" type="submit" [disabled]="modifyStudent.invalid">Modificar alumno</button>
+      </div>
+    </form>
+  </div>
+</div>
