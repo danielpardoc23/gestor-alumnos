@@ -34,7 +34,13 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>DNI</mat-label>
-      <input matInput formControlName="dni" required>
+      <div *ngIf="signStudent.get('country')?.value === 'ES' ; then spanishDni else otherDni"></div>
+      <ng-template #spanishDni>
+        <input matInput formControlName="dni" required pattern="(\d{8})([-]?)([A-Z]{1})">
+      </ng-template>
+      <ng-template #otherDni>
+        <input matInput formControlName="dni" required>
+      </ng-template>
       <mat-error *ngIf="signStudent.get('dni')?.errors && signStudent.get('dni')?.hasError('required')">
         {{ STUDENT_ERRORS.dni.notProvided }}
       </mat-error>
@@ -97,7 +103,7 @@
       <mat-label>Código postal</mat-label>
       <div *ngIf="signStudent.get('country')?.value === 'ES' ; then spanishCp else otherCp"></div>
         <ng-template #spanishCp>
-          <input matInput formControlName="cp" required pattern="[4][2][0-9]{3}">
+          <input matInput formControlName="cp" required pattern="^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$">
         </ng-template>
         <ng-template #otherCp>
           <input matInput formControlName="cp" required>
@@ -145,12 +151,20 @@
       <mat-error *ngIf="signStudent.get('repeatPassword')?.errors && signStudent.get('repeatPassword')?.hasError('minLength')">
         {{ STUDENT_ERRORS.repeatPassword.minLength }}
       </mat-error>
-      <mat-error *ngIf="signStudent.get('repeatPassword')?.errors && signStudent.get('repeatPassword')?.hasError('invalid')">
-        {{ STUDENT_ERRORS.repeatPassword.invalid }}
-      </mat-error>
     </mat-form-field>
-    <div class="buttons">
-      <button mat-raised-button color="primary" type="submit" [disabled]="signStudent.invalid">Crear alumno</button>
-    </div>
+      <div *ngIf="signStudent.get('password')?.value === signStudent.get('repeatPassword')?.value ; then correct else incorrect"></div>
+      <ng-template #correct>
+        <div class="buttons">
+          <button mat-raised-button color="primary" type="submit" [disabled]="signStudent.invalid">Crear alumno</button>
+        </div>
+      </ng-template>
+      <ng-template #incorrect>
+        <div class="buttons">
+          <button mat-raised-button color="primary" type="submit" disabled="true">Crear alumno</button>
+        </div>
+        <mat-error class="notEqual">
+          {{ STUDENT_ERRORS.repeatPassword.invalid }}
+        </mat-error>
+      </ng-template>
   </form>
 </div>

@@ -14,6 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ModifyStudentComponent } from './components/modify-student/modify-student.component';
 import { ListStudentComponent } from './components/list-student/list-student.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { StrengthBarComponent } from './components/strength-bar/strength-bar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
     HomeComponent,
     ModifyStudentComponent,
     ListStudentComponent,
+    ChangePasswordComponent,
+    StrengthBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatDialogModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

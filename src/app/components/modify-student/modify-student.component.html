@@ -112,6 +112,7 @@
       </mat-form-field>
       <div class="buttons">
         <button mat-raised-button color="primary" type="submit" [disabled]="modifyStudent.invalid">Modificar alumno</button>
+        <button mat-raised-button color="primary" [routerLink]="['/change-pass/', student.id]">Cambiar contraseña</button>
       </div>
     </form>
   </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { GENERAL_ERRORS } from 'src/app/core/utils/general.errors';
 import { STUDENT_ERRORS } from '../../core/utils/student.errors';
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private studentService: StudentService
+    private studentService: StudentService,
+    //private dniValidator: DniValidator
     ) {
       this.students = this.studentService.students$;
       this.signStudent = this.fb.group({
@@ -129,6 +130,7 @@ export class HomeComponent implements OnInit {
     if(this.signStudent.get('password')?.value === this.signStudent.get('repeatPassword')?.value){
       let hashPass = CryptoJS.SHA3(this.signStudent.get('password')?.value);
       this.signStudent.controls['password'].setValue(hashPass);
+      this.signStudent.controls['repeatPassword'].setValue(hashPass);
       localStorage.setItem(this.takeLastId() , JSON.stringify(this.signStudent?.value))
       location.href = '/list';
     }else{

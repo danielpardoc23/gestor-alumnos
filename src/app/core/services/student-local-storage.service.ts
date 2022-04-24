@@ -37,12 +37,8 @@ export class StudentLocalStorageService {
       return '0';
     }else{
       let last = this.students[this.students.length - 1].id;
-      console.log(last);
-      console.log(typeof(last))
       let result = parseInt(last, 10);
       result = result + 1;
-      console.log(result);
-      console.log(typeof(result))
       return result.toString();
     }
   }

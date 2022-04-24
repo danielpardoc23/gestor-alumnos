@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ModifyStudentComponent } from './components/modify-student/modify-student.component';
 import { ListStudentComponent } from './components/list-student/list-student.component';
 import { HomeComponent } from './components/home/home.component';
@@ -9,6 +10,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'list', component: ListStudentComponent  },
   { path: 'student/:id', component: ModifyStudentComponent },
+  { path: 'change-pass/:id', component: ChangePasswordComponent }
 ];
 
 @NgModule({

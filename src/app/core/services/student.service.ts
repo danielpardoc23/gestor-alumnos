@@ -8,11 +8,6 @@ import { Student } from 'src/app/models/student.model';
 })
 export class StudentService {
 
-  letters = new RegExp('([a-z])*', 'i');
-  lowerUpperCase = new RegExp('(([A-Z]+)([a-z])+)');
-  numbers = new RegExp('([0-9]+)');
-  simbols = new RegExp('[\W]');
-
   private _students$: Student[] = [];
 
   student!: Student;
@@ -21,43 +16,6 @@ export class StudentService {
     private studentLocalStorage: StudentLocalStorageService
   ) {
     this._students$ = this.studentLocalStorage.getStudents();
-  }
-
-  validatePassword(password: string): number{
-    let count = 0;
-
-    let passLength = password.length;
-    if(passLength >= 0 && passLength <= 6){
-
-    }else if(passLength >= 7 && passLength <= 8){
-      count++;
-    }else if(passLength >= 9 && passLength <= 12){
-      count = count + 2;
-    }else if(passLength > 12){
-      count = count + 3;
-    }
-
-    if(password.match(this.letters)){
-      count++;
-    }
-
-    if(password.match(this.lowerUpperCase)){
-      count = count + 2;
-    }
-
-    if(password.match(this.numbers)){
-      count++;
-    }
-
-    if(password.match(this.simbols)){
-      count = count + 2;
-    }
-
-    if(count === 9){
-      count++;
-    }
-
-    return count;
   }
 
   get students$(): Student[]{

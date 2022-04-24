@@ -24,6 +24,8 @@ h3{
 .buttons{
   min-width: 100%;
   margin-top: 0.5em;
+  display: flex;
+  direction: row;
 }
 
 .buttons > button{
@@ -31,4 +33,5 @@ h3{
   min-width: 95%;
   height: 100%;
   margin: 1em;
+  margin-left: 5em;
 }
